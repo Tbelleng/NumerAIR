@@ -73,7 +73,7 @@ impl Fixed {
         assert!(rhs.0 != 0, "Division by zero");
 
         // Compute quotient
-        let quotient = (self.0 << DEFAULT_SCALE) / rhs.0;
+        let quotient = ((self.0 << DEFAULT_SCALE) + (rhs.0 >> 1)) / rhs.0;
 
         // Compute remainder from quotient
         let remainder = self.0 - ((quotient * rhs.0) >> DEFAULT_SCALE);
