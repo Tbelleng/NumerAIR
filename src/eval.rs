@@ -1,6 +1,6 @@
 use num_traits::One;
 use stwo_prover::constraint_framework::EvalAtRow;
-
+use stwo_prover::core::fields::m31::BaseField;
 /// Extension trait for EvalAtRow to support fixed-point arithmetic constraint evaluation
 pub trait EvalFixedPoint: EvalAtRow {
     /// Evaluates addition constraints for fixed-point numbers.
@@ -58,8 +58,11 @@ pub trait EvalFixedPoint: EvalAtRow {
         println!("reciprocal: {:?}", reciprocal);
         println!("remainder: {:?}", remainder);
 
-        let scale_squared = self.add_intermediate(scale.clone() * scale);
-        self.eval_fixed_div_rem(scale_squared, value, reciprocal, remainder);
+        let scale_to_form = self.add_intermediate(scale.clone() + scale);
+        println!("scale_to_form: {:?}", scale_to_form);
+
+        //let scale_squared = self.add_intermediate(scale.clone() * scale);
+        self.eval_fixed_div_rem(scale_to_form, value, reciprocal, remainder);
     }
 }
 
